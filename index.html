@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lista de Tareas Guapísima</title>
+  <style>
+    /* Reset y variables CSS */
+    :root {
+        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        --danger-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        --surface-color: rgba(255, 255, 255, 0.95);
+        --text-primary: #2d3748;
+        --text-secondary: #718096;
+        --border-color: rgba(255, 255, 255, 0.2);
+        --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.1);
+        --shadow-hover: 0 15px 50px rgba(0, 0, 0, 0.15);
+        --border-radius: 16px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        min-height: 100vh;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+            radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.2) 0%, transparent 50%);
+        animation: float 20s ease-in-out infinite;
+        z-index: -1;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        33% { transform: translateY(-20px) rotate(120deg); }
+        66% { transform: translateY(10px) rotate(240deg); }
+    }
+
+    .container {
+        background: var(--surface-color);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--border-color);
+        padding: 40px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-soft);
+        width: 100%;
+        max-width: 550px;
+        position: relative;
+        animation: slideUp 0.6s ease-out;
+        transition: var(--transition);
+    }
+
+    .container:hover {
+        box-shadow: var(--shadow-hover);
+        transform: translateY(-2px);
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    h1 {
+        text-align: center;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        position: relative;
+    }
+
+    h1::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background: var(--primary-gradient);
+        border-radius: 2px;
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+    }
+
+    form {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 30px;
+        position: relative;
+    }
+
+    input[type="text"] {
+        flex-grow: 1;
+        padding: 16px 20px;
+        border: 2px solid transparent;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        font-size: 1rem;
+        color: var(--text-primary);
+        transition: var(--transition);
+        outline: none;
+        position: relative;
+    }
+
+    input[type="text"]:focus {
+        background: rgba(255, 255, 255, 0.95);
+        border-color: #667eea;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        transform: translateY(-1px);
+    }
+
+    input[type="text"]::placeholder {
+        color: var(--text-secondary);
+        font-weight: 500;
+    }
+
+    button {
+        background: var(--primary-gradient);
+        color: white;
+        border: none;
+        padding: 16px 24px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: var(--transition);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    button:hover::before {
+        left: 100%;
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    button:active {
+        transform: translateY(0);
+    }
+
+    ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 12px;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        animation: slideIn 0.4s ease-out;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--success-gradient);
+        transform: scaleY(0);
+        transition: var(--transition);
+        border-radius: 0 2px 2px 0;
+    }
+
+    li:hover::before {
+        transform: scaleY(1);
+    }
+
+    li:hover {
+        background: rgba(255, 255, 255, 0.9);
+        transform: translateX(8px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    li.done {
+        background: rgba(102, 126, 234, 0.1);
+        border-color: rgba(102, 126, 234, 0.2);
+    }
+
+    li.done::before {
+        background: var(--primary-gradient);
+        transform: scaleY(1);
+    }
+
+    li.done span {
+        text-decoration: line-through;
+        color: var(--text-secondary);
+        opacity: 0.7;
+    }
+
+    li span {
+        flex-grow: 1;
+        font-weight: 500;
+        color: var(--text-primary);
+        transition: var(--transition);
+    }
+
+    .toggle, .delete {
+        text-decoration: none;
+        font-size: 1.3rem;
+        margin-left: 12px;
+        padding: 8px;
+        border-radius: 8px;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .toggle {
+        background: rgba(79, 172, 254, 0.1);
+        color: #4facfe;
+    }
+
+    .delete {
+        background: rgba(250, 112, 154, 0.1);
+        color: #fa709a;
+    }
+
+    .toggle:hover {
+        background: var(--success-gradient);
+        color: white;
+        transform: scale(1.1) rotate(10deg);
+        box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+    }
+
+    .delete:hover {
+        background: var(--danger-gradient);
+        color: white;
+        transform: scale(1.1) rotate(-10deg);
+        box-shadow: 0 4px 15px rgba(250, 112, 154, 0.3);
+    }
+
+    li:only-child:not(.done):not(:hover) {
+        text-align: center;
+        color: var(--text-secondary);
+        font-style: italic;
+        background: rgba(255, 255, 255, 0.5);
+        border: 2px dashed rgba(102, 126, 234, 0.3);
+    }
+
+    @media (max-width: 600px) {
+        body {
+            padding: 15px;
+        }
+
+        .container {
+            padding: 25px;
+            max-width: 100%;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        form {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        button {
+            padding: 18px;
+        }
+
+        li {
+            padding: 16px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        li > div {
+            align-self: flex-end;
+            display: flex;
+            gap: 8px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Lista de Tareas</h1>
+    <form id="task-form">
+      <input type="text" id="task-input" placeholder="Escribe una tarea..." required />
+      <button type="submit">Agregar</button>
+    </form>
+    <ul id="task-list"></ul>
+  </div>
+
+  <script>
+    const form = document.getElementById('task-form');
+    const input = document.getElementById('task-input');
+    const list = document.getElementById('task-list');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (text !== '') {
+        const li = document.createElement('li');
+        const span = document.createElement('span');
+        span.textContent = text;
+
+        const toggle = document.createElement('a');
+        toggle.href = "#";
+        toggle.className = "toggle";
+        toggle.innerHTML = "✔️";
+
+        const del = document.createElement('a');
+        del.href = "#";
+        del.className = "delete";
+        del.innerHTML = "🗑️";
+
+        const btnGroup = document.createElement('div');
+        btnGroup.appendChild(toggle);
+        btnGroup.appendChild(del);
+
+        li.appendChild(span);
+        li.appendChild(btnGroup);
+        list.appendChild(li);
+
+        input.value = '';
+
+        toggle.addEventListener('click', () => {
+          li.classList.toggle('done');
+        });
+
+        del.addEventListener('click', () => {
+          li.remove();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
